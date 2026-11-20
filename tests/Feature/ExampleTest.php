@@ -1,7 +1,7 @@
 <?php
 
-it('returns a successful response', function () {
+it('redirects visitors to setup until the portfolio profile exists', function () {
     $response = $this->get('/');
 
-    $response->assertStatus(200);
+    $response->assertRedirect(route('setup.account', absolute: false));
 });

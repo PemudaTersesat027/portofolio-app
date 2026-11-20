@@ -1,13 +1,13 @@
 <?php
 
-test('registration screen can be rendered', function () {
+test('registration screen redirects to the setup flow', function () {
     $response = $this->get('/register');
 
-    $response->assertStatus(200);
+    $response->assertRedirect(route('setup.account', absolute: false));
 });
 
-test('new users can register', function () {
-    $response = $this->post('/register', [
+test('new users are created through the setup flow', function () {
+    $response = $this->post(route('setup.account'), [
         'name' => 'Test User',
         'email' => 'test@example.com',
         'password' => 'password',
@@ -15,5 +15,6 @@ test('new users can register', function () {
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(route('dashboard', absolute: false));
+    $this->assertDatabaseHas('users', ['email' => 'test@example.com']);
+    $response->assertRedirect(route('setup.identity', absolute: false));
 });
