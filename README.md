@@ -1,156 +1,175 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Portfolio WebApp
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**A Modern & Customizable Portfolio Web Application Template**
 
-## Starter Kit Overview
+A modern, responsive, and customizable portfolio web application template built with Laravel, Inertia.js, and React.
 
-This repository is a ready-to-use Laravel starter kit with a React + Inertia frontend. It keeps Laravel's server-side routing and authentication while shipping a modern Vite, Tailwind CSS, and shadcn/ui setup.
+Designed to provide a solid foundation for developers, designers, freelancers, and professionals who want to build their own personal portfolio website.
 
-### Included Features
+The project combines a modern frontend experience with a structured Laravel backend, making it flexible for future customization and feature expansion.
 
-- Laravel 13 with Inertia.js v2 and React 18.
-- Laravel Breeze authentication flow: register, login, remember me, forgot/reset password, email verification, confirm password, and logout.
-- Profile management: update name/email, update password, and delete account.
-- Dashboard and welcome pages.
-- Ziggy's global `route()` helper via the `@routes` Blade directive.
-- Pest feature tests covering authentication, email verification, password confirmation/reset/update, and profile changes.
-- Laravel Boost installed with project guidelines, skills, and MCP tools for AI-assisted development.
+> Currently under active development.
 
-### Frontend Stack
+---
 
-- **Vite 8** with `@vitejs/plugin-react` v6 and `laravel-vite-plugin` v3.
-- **Tailwind CSS v4** through `@tailwindcss/vite`. The theme is CSS-first in `resources/css/app.css`; there is no `tailwind.config.js` or PostCSS config.
-- **shadcn/ui** using the Radix base, Nova preset, neutral base color, and CSS variables. Primitives live in `resources/js/components/ui`.
-- **Lucide React** icons.
-- **Geist** variable font bundled locally through `@fontsource-variable/geist`.
-- The `@` alias points to `resources/js` in both `jsconfig.json` and `vite.config.js`.
+## Project Overview
 
-### Requirements
+| Property | Details |
+|---|---|
+| Project Name | Portfolio WebApp |
+| Type | Web Application Template |
+| Version | `v0.1.0` |
+| Development Status | Early Development |
+| License | MIT |
+
+## Features
+
+### Current Release — v0.1.0
+
+- Laravel application foundation.
+- Inertia.js integration.
+- React JSX frontend configuration.
+- Tailwind CSS v4 integration.
+- shadcn/ui component library.
+- Lucide React icon integration.
+- Initial application structure and configuration.
+
+### Planned Features
+
+- [ ] Modern portfolio landing page.
+- [ ] Personal profile and About Me section.
+- [ ] Dynamic project showcase.
+- [ ] Skills and technology showcase.
+- [ ] Work experience and education section.
+- [ ] Contact section.
+- [ ] Responsive desktop and mobile layouts.
+- [ ] Reusable UI components.
+- [ ] Admin dashboard.
+- [ ] Portfolio content management.
+
+## Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Laravel 13 | Backend framework |
+| Inertia.js v2 | Backend and frontend integration |
+| React 18 | Frontend library |
+| Tailwind CSS v4 | Styling framework |
+| shadcn/ui | UI component system |
+| Lucide React | Icon library |
+| Vite 8 | Frontend build tool |
+| Geist | Typography |
+
+## Requirements
 
 - PHP 8.3+
-- Node.js 20.19+ or 22.12+ (required by Vite 8)
-- Composer and npm
+- Composer
+- Node.js 20.19+ or 22.12+
+- npm
+- SQLite or MySQL
 
-### Getting Started
+## Installation
+
+### 1. Clone the repository
 
 ```bash
-composer run setup
-composer run dev
+git clone <repository-url>
+cd <project-directory>
 ```
 
-`composer run setup` installs PHP and JS dependencies, creates `.env`, generates the app key, runs migrations, and builds the frontend assets. `composer run dev` starts the Laravel server, Vite, and the other dev processes through `php artisan dev`.
-
-For a manual setup:
+### 2. Install dependencies
 
 ```bash
 composer install
-cp .env.example .env
-php artisan key:generate
-php artisan migrate
 npm install
-npm run dev
 ```
 
-Build production assets with:
+### 3. Configure environment
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Configure your database connection inside `.env`.
+
+### 4. Run migrations
+
+```bash
+php artisan migrate
+```
+
+### 5. Start development server
+
+```bash
+composer run dev
+```
+
+Open the application at:
+
+`http://localhost:8000`
+
+### Production Build
 
 ```bash
 npm run build
 ```
 
-### Project Structure
+## Project Structure
 
 ```text
 resources/
-├── css/app.css                  # Tailwind v4 theme + shadcn design tokens
+├── css/
+│   └── app.css
 ├── js/
-│   ├── Components/              # App-specific components wired to shadcn/ui
-│   ├── Layouts/                 # Authenticated and guest layouts
-│   ├── Pages/                   # Inertia pages (Auth, Dashboard, Profile, Welcome)
-│   ├── components/ui/           # shadcn/ui primitives
-│   └── lib/utils.js             # cn() helper re-export
-├── views/app.blade.php          # @routes, @viteReactRefresh, @vite, @inertia
-routes/                          # web.php and auth.php
-tests/Feature/                   # Pest feature tests
+│   ├── Components/
+│   ├── Layouts/
+│   ├── Pages/
+│   ├── components/
+│   │   └── ui/
+│   └── lib/
+└── views/
+    └── app.blade.php
+
+routes/
+├── web.php
+└── auth.php
+
+tests/
+└── Feature/
 ```
 
-### UI Components
+## Development Roadmap
 
-The following shadcn/ui primitives are already installed: `button`, `card`, `input`, `label`, `checkbox`, `dialog`, `dropdown-menu`, `separator`, and `skeleton`. Add more with:
+| Version | Milestone |
+|---|---|
+| `v0.1.0` | Initial setup and foundation |
+| `v0.2.0` | Portfolio landing page |
+| `v0.3.0` | Dynamic portfolio sections |
+| `v0.4.0` | Admin dashboard |
+| `v0.5.0` | Content management features |
+| `v1.0.0` | First stable release |
 
-```bash
-npx shadcn@latest add <component>
-```
+For detailed updates, see [CHANGELOG.md](CHANGELOG.md).
 
-### Dependency Notes
+## Design Philosophy
 
-- Vite 8 requires `@vitejs/plugin-react` v6. Do not pin the plugin back to v4 and do not use `--legacy-peer-deps`; the peer versions are intentionally matched.
-- `npm audit` may report moderate advisories from the shadcn CLI dependency chain (`shadcn` → `ts-morph` → `@ts-morph/common` → `minimatch`). These are development-tooling advisories and are not part of the shipped browser bundle.
+The application aims to provide a portfolio experience that is:
 
-### Testing
-
-```bash
-php artisan test --compact
-```
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
-```
-
-> This starter kit already includes Laravel Boost, so the commands above are only needed when starting from a fresh Laravel app.
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+- **Modern** — Contemporary design and visual language.
+- **Minimalist** — Clean layouts without unnecessary complexity.
+- **Responsive** — Optimized for desktop and mobile devices.
+- **Flexible** — Easy to customize and extend.
+- **Reusable** — Built with reusable components and consistent patterns.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-> For changes to this starter kit itself, use this repository's issues and pull requests. The linked guide remains the upstream Laravel reference.
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-> For vulnerabilities specific to this starter kit, please open an issue in this repository instead.
+Suggestions, feedback, and contributions are welcome. Feel free to open an issue or submit a pull request.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Distributed under the [MIT License](LICENSE).
 
-This starter kit is distributed under the same MIT license unless stated otherwise.
+---
+
+**Built with Laravel, React, and a passion for creating.**
