@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Head, Link } from "@inertiajs/react";
 import {
   ArrowRight,
+  BriefcaseBusiness,
   Code2,
   Globe,
   Mail,
@@ -13,6 +14,7 @@ import {
   Server,
   ShoppingBag,
   Terminal,
+  Wrench,
   X,
 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
@@ -20,16 +22,9 @@ import { FaLinkedin } from "react-icons/fa";
 
 // ============================================================
 // DATA
-// Profil berasal dari props Inertia; data statis di bawah ini
-// adalah konten portofolio yang akan dikelola terpisah nanti.
+// Profil, statistik, skill, pengalaman, dan proyek berasal dari props Inertia.
+// Kapabilitas berikut masih merupakan konten statis.
 // ============================================================
-
-const statistics = [
-  { value: "5", label: "Software Products" },
-  { value: "2", label: "Commercial Releases" },
-  { value: "2", label: "Open-Source Tools" },
-  { value: "ID", label: "Based in Indonesia" },
-];
 
 const capabilities = [
   {
@@ -58,126 +53,15 @@ const capabilities = [
   },
 ];
 
-const skills = [
-  {
-    title: "Frontend Development",
-    items: ["React", "TypeScript", "Tailwind CSS", "Inertia.js"],
-  },
-  {
-    title: "Backend Development",
-    items: ["PHP", "Laravel", "Node.js", "REST API"],
-  },
-  {
-    title: "Database",
-    items: ["MySQL", "SQLite", "PostgreSQL"],
-  },
-  {
-    title: "Networking & Infra",
-    items: ["MikroTik", "Linux", "Proxmox", "Network Admin"],
-  },
-];
-
-const experiences = [
-  {
-    eyebrow: "Independent",
-    title: "Freelance IT Support",
-    description:
-      "Network troubleshooting, MikroTik deployment, Linux server administration, and infrastructure consulting.",
-    icon: Server,
-  },
-  {
-    eyebrow: "Personal Projects",
-    title: "Independent Developer",
-    description:
-      "Designing and engineering commercial desktop/enterprise applications and open-source networking tools.",
-    icon: Code2,
-  },
-];
-
-// Keep project data separate from UI. Replace this array with Laravel props later.
-const projects = [
-  {
-    id: 1,
-    title: "ISP Management System",
-    category: "Desktop Application",
-    description:
-      "A centralized platform for managing ISP subscribers, services, billing, and network monitoring.",
-    image:
-      "https://lh3.googleusercontent.com/aida/ALJJyrAcMsZ_EZ0UmqRfeoPeJKQctW-qrz5bgBLT62Abho4SidYImcOeraqTyb8qSEufsEvfgV9zJPpFJmKqySIhFNKV7XPvcnVf1nyhVm1IxMqk79pYlJ4DvWBp2J9g5bYUPuxJwDBs9u8cmXBdVje5t0oQwVKRzjC5fWbkCgBEIdBFBEHpv_dnJ-LVHzgY3WU9tEI0lUXci9zDrqHgemNbP4mYH5a3PmIdRN7YhfIEPdS_kwo0LH6D0nSxOL1_71o",
-    version: "0.5.0",
-    developmentStatus: "development",
-    sourceType: "closed-source",
-    salesStatus: "pre-order",
-    tags: ["Rust", "React", "MySQL", "MikroTik"],
-    price: 2500000,
-    preorderPrice: 1500000,
-    preorderDeadline: "March 31, 2027",
-    preorderLimit: 20,
-    preorderSold: 8,
-    purchaseUrl: "mailto:hello@erickalaziz.dev?subject=ISP%20Management%20System%20Pre-Order",
-  },
-  {
-    id: 2,
-    title: "Warehouse Management System",
-    category: "Enterprise Application",
-    description:
-      "An integrated warehouse management solution for inventory, stock movement, and operational workflows.",
-    image:
-      "https://lh3.googleusercontent.com/aida/ALJJyrBUk4kRE-Mh25NCMHfO1Wmbhejbny2nLtDJVmT8c7jK-44DzmREj8MVYljm2pr89jnjHuktn2QvW0OUZXVLGF43DRRQBwgrrHS29VLzTfB55Wqb7sN1875RpSS7x3NgLzG6UYIk6Igx8uJH63tfcFX2oU4SZPEb4uq-wF9vKzIFZJu29zFX3JDZ4sGCdRv6633FiBq4HUnzKlAkiRH_8kic2Bu5dLbYCgSE-hbnsO8T2Gy2DF0",
-    version: "1.0.0",
-    developmentStatus: "released",
-    sourceType: "closed-source",
-    salesStatus: "available",
-    tags: ["Laravel", "React", "TypeScript", "MySQL"],
-    price: 3500000,
-    liveUrl: "https://example.com/demo",
-    trialUrl: "https://example.com/trial",
-    purchaseUrl: "mailto:hello@erickalaziz.dev?subject=Warehouse%20Management%20System",
-  },
-  {
-    id: 3,
-    title: "Personal Portfolio",
-    category: "Web Application",
-    description:
-      "A personal portfolio website built with modern web technologies and a minimal interface.",
-    version: "1.0.0",
-    developmentStatus: "released",
-    sourceType: "open-source",
-    salesStatus: "not-for-sale",
-    tags: ["React", "TypeScript", "Tailwind CSS"],
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/",
-  },
-  {
-    id: 4,
-    title: "Network Monitoring Dashboard",
-    category: "Networking Tool",
-    description:
-      "A monitoring dashboard concept for visualizing network performance and infrastructure status.",
-    image:
-      "https://lh3.googleusercontent.com/aida/ALJJyrBpbhiBm3YXrV7zLOP-wb8MGTwZCUH4f1Ue7ev2KQH_nuqvwNc_x1eG_yrCi5qMQW5nxq7hOV0vuK_p0QLVezUUCYE-4FyxPUvdf2hG6sKlEY-fR51u8Ph0a6OfjXZXjGUJ_x1Iqx4xjImtpNH9pxpXc2xu-rryJYWvTsC_flOweQJEedb1lSRr4nUw9-xS04PA6_T2fnN-bmu4ohB6UMcKO-DdN34ErdqZNrKLTKRY7IZIeeBP-CpO2DRbJAiVaw",
-    version: "0.2.0",
-    developmentStatus: "development",
-    sourceType: "open-source",
-    salesStatus: "not-for-sale",
-    tags: ["Laravel", "MikroTik", "REST API"],
-    githubUrl: "https://github.com/",
-  },
-  {
-    id: 5,
-    title: "Point of Sales",
-    category: "Business Application",
-    description:
-      "A point of sales application designed for retail transaction and business operations.",
-    image:
-      "https://lh3.googleusercontent.com/aida/ALJJyrDcuLtyKZlgJjVoDNY2yjcaurDmvNOHTn8_aCfxeplNQkYz7JlO5nJskTL_VNPZkGkNjmMdb77qM1PXHn-XJ1QnD00xlfBkVc2HPPNCWONknbDgUhQsMFq6zl7x0yFguqBkGVT-XZF6u4tcXgFA4HtNxVFl9CDlL9R5d5E5UBBGkk_QPSuPAV9EAkppbL9EyctzkGiultckVMAlDDAT6A5DxU6IZSPQZ9xPVg17fI53meoA_c8",
-    version: "0.1.0",
-    developmentStatus: "development",
-    sourceType: "closed-source",
-    salesStatus: "not-for-sale",
-    tags: ["React", "Laravel", "SQLite"],
-  },
-];
+const experienceIcons = {
+  Code2,
+  Server,
+  BriefcaseBusiness,
+  Wrench,
+  Network,
+  Router,
+  Package,
+};
 
 // ============================================================
 // HELPERS
@@ -421,7 +305,9 @@ function FeaturedProjectCard({ project }) {
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between gap-3">
             <span className="text-xs text-[#475569]">{project.category}</span>
-            <span className="font-mono text-xs text-[#475569]">v{project.version}</span>
+            <span className="font-mono text-xs text-[#475569]">
+              {project.version ? `v${project.version}` : null}
+            </span>
           </div>
 
           <ProjectBadges project={project} />
@@ -433,7 +319,7 @@ function FeaturedProjectCard({ project }) {
           <p className="text-sm leading-6 text-[#475569]">{project.description}</p>
 
           <div className="flex flex-wrap gap-2 pt-1">
-            {project.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}
+            {(project.tags ?? []).map((tag) => <Tag key={tag}>{tag}</Tag>)}
           </div>
         </div>
 
@@ -462,7 +348,9 @@ function CompactProjectCard({ project }) {
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between gap-2">
             <span className="text-xs text-[#475569]">{project.category}</span>
-            <span className="font-mono text-xs text-[#475569]">v{project.version}</span>
+            <span className="font-mono text-xs text-[#475569]">
+              {project.version ? `v${project.version}` : null}
+            </span>
           </div>
 
           <ProjectBadges project={project} />
@@ -471,7 +359,7 @@ function CompactProjectCard({ project }) {
           <p className="text-sm leading-6 text-[#475569]">{project.description}</p>
 
           <div className="flex flex-wrap gap-1.5">
-            {project.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}
+            {(project.tags ?? []).map((tag) => <Tag key={tag}>{tag}</Tag>)}
           </div>
         </div>
 
@@ -569,7 +457,7 @@ function Navbar({ profile }) {
   );
 }
 
-function Hero({ profile }) {
+function Hero({ profile, statistics }) {
   return (
     <section id="home" className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
       <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
@@ -664,7 +552,10 @@ function Hero({ profile }) {
             key={item.label}
             className={`flex flex-col gap-1 ${index % 2 === 1 ? "border-l border-[#E2E8F0] pl-4 sm:pl-6" : ""} ${index >= 2 ? "sm:border-l sm:border-[#E2E8F0] sm:pl-6" : ""}`}
           >
-            <span className={`font-display text-2xl tabular-nums ${index === 3 ? "text-[#006948]" : "text-[#0F172A]"}`}>
+            <span
+              title={String(item.value)}
+              className={`min-w-0 truncate font-display text-xl tabular-nums sm:text-2xl ${index === 3 ? "text-[#006948]" : "text-[#0F172A]"}`}
+            >
               {item.value}
             </span>
             <span className="text-xs leading-5 text-[#475569] sm:text-sm">{item.label}</span>
@@ -706,7 +597,20 @@ function About({ profile }) {
   );
 }
 
-function SkillsExperience() {
+function SkillsExperience({ skills, experiences }) {
+  const groupedSkills = skills.reduce((groups, skill) => {
+    let group = groups.find((item) => item.title === skill.category);
+
+    if (!group) {
+      group = { title: skill.category, items: [] };
+      groups.push(group);
+    }
+
+    group.items.push(skill);
+
+    return groups;
+  }, []);
+
   return (
     <section id="skills" className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
       <div className="flex flex-col gap-3">
@@ -717,38 +621,54 @@ function SkillsExperience() {
       </div>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {skills.map((group) => (
-          <div key={group.title} className="flex flex-col gap-4 rounded-md border border-[#E2E8F0] bg-[#F8FAFC] p-5 sm:p-6">
-            <h3 className="font-semibold text-[#0F172A]">{group.title}</h3>
-            <div className="flex flex-wrap gap-2">
-              {group.items.map((item) => <Tag key={item}>{item}</Tag>)}
+        {groupedSkills.length > 0 ? (
+          groupedSkills.map((group) => (
+            <div key={group.title} className="flex flex-col gap-4 rounded-md border border-[#E2E8F0] bg-[#F8FAFC] p-5 sm:p-6">
+              <h3 className="font-semibold text-[#0F172A]">{group.title}</h3>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((skill) => (
+                  <Tag key={skill.id}>
+                    {skill.name}
+                    {skill.level && (
+                      <span className="ml-1 text-[10px] text-[#94A3B8]">{skill.level}</span>
+                    )}
+                  </Tag>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className="text-sm text-[#94A3B8]">Belum ada skill yang ditambahkan.</p>
+        )}
       </div>
 
       <div id="experience" className="mt-8 grid gap-4 md:grid-cols-2">
-        {experiences.map((item) => {
-          const Icon = item.icon;
-          return (
-            <div key={item.title} className="flex items-start gap-4 rounded-md border border-[#E2E8F0] bg-white p-5 sm:p-6">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D8F3E6] text-[#003825]">
-                <Icon size={19} />
+        {experiences.length > 0 ? (
+          experiences.map((item) => {
+            const Icon = experienceIcons[item.icon] ?? Code2;
+
+            return (
+              <div key={item.id} className="flex items-start gap-4 rounded-md border border-[#E2E8F0] bg-white p-5 sm:p-6">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D8F3E6] text-[#003825]">
+                  <Icon size={19} />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="text-xs font-semibold text-[#006948]">{item.eyebrow}</span>
+                  <h3 className="font-display text-lg text-[#0F172A]">{item.title}</h3>
+                  <p className="mt-1 text-sm leading-6 text-[#475569]">{item.description}</p>
+                </div>
               </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-xs font-semibold text-[#006948]">{item.eyebrow}</span>
-                <h3 className="font-display text-lg text-[#0F172A]">{item.title}</h3>
-                <p className="mt-1 text-sm leading-6 text-[#475569]">{item.description}</p>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <p className="text-sm text-[#94A3B8]">Belum ada pengalaman yang ditambahkan.</p>
+        )}
       </div>
     </section>
   );
 }
 
-function Projects() {
+function Projects({ projects }) {
   const featuredProjects = projects.slice(0, 2);
   const otherProjects = projects.slice(2);
 
@@ -767,17 +687,25 @@ function Projects() {
           </p>
         </div>
 
-        <div className="grid items-stretch gap-6 lg:grid-cols-2 lg:gap-8">
-          {featuredProjects.map((project) => (
-            <FeaturedProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        {projects.length === 0 ? (
+          <p className="text-sm text-[#94A3B8]">Belum ada proyek yang ditambahkan.</p>
+        ) : (
+          <>
+            <div className="grid items-stretch gap-6 lg:grid-cols-2 lg:gap-8">
+              {featuredProjects.map((project) => (
+                <FeaturedProjectCard key={project.id} project={project} />
+              ))}
+            </div>
 
-        <div className="grid items-stretch gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {otherProjects.map((project) => (
-            <CompactProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+            {otherProjects.length > 0 && (
+              <div className="grid items-stretch gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {otherProjects.map((project) => (
+                  <CompactProjectCard key={project.id} project={project} />
+                ))}
+              </div>
+            )}
+          </>
+        )}
       </div>
     </section>
   );
@@ -878,7 +806,13 @@ function Footer({ profile }) {
 // MAIN PAGE
 // ============================================================
 
-export default function Welcome({ profile }) {
+export default function Welcome({
+  profile,
+  statistics = [],
+  skills = [],
+  experiences = [],
+  projects = [],
+}) {
   return (
     <>
       <Head title={`${profile.name} — Minimalist Professional Portfolio`} />
@@ -889,10 +823,10 @@ export default function Welcome({ profile }) {
       >
         <Navbar profile={profile} />
         <main>
-          <Hero profile={profile} />
+          <Hero profile={profile} statistics={statistics} />
           <About profile={profile} />
-          <SkillsExperience />
-          <Projects />
+          <SkillsExperience skills={skills} experiences={experiences} />
+          <Projects projects={projects} />
           <Contact profile={profile} />
         </main>
         <Footer profile={profile} />

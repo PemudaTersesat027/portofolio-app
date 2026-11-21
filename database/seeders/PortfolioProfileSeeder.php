@@ -41,5 +41,11 @@ class PortfolioProfileSeeder extends Seeder
                 'setup_completed_at' => now(),
             ],
         );
+
+        $this->call([
+            SkillSeeder::class,
+            ProjectSeeder::class,
+            ExperienceSeeder::class,
+        ]);
     }
 }

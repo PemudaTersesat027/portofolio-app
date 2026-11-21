@@ -15,25 +15,31 @@ import {
     Wrench,
 } from 'lucide-react';
 
-const upcomingFeatures = [
+const contentSections = [
     {
+        key: 'skills',
         title: 'Keahlian',
         description: 'Atur kategori skill dan daftar teknologi yang Anda kuasai.',
         icon: Wrench,
+        routeName: 'admin.skills.index',
     },
     {
+        key: 'projects',
         title: 'Proyek',
         description: 'Tambahkan portofolio proyek beserta gambar, tag, dan tautan.',
         icon: FolderKanban,
+        routeName: 'admin.projects.index',
     },
     {
+        key: 'experiences',
         title: 'Pengalaman',
         description: 'Susun riwayat kerja dan pengalaman independen Anda.',
         icon: BriefcaseBusiness,
+        routeName: 'admin.experiences.index',
     },
 ];
 
-export default function Dashboard({ profile }) {
+export default function Dashboard({ profile, counts }) {
     const flash = usePage().props.flash ?? {};
 
     return (
@@ -77,8 +83,8 @@ export default function Dashboard({ profile }) {
                                     Portofolio Anda sudah aktif
                                 </h2>
                                 <p className="mt-2 max-w-xl text-sm leading-6 text-white/75">
-                                    Identitas dan foto utama tersimpan. Tahap berikutnya
-                                    menambahkan keahlian dan proyek melalui dashboard.
+                                    Identitas dan foto utama tersimpan. Kelola keahlian,
+                                    proyek, dan pengalaman langsung dari dashboard.
                                 </p>
                             </div>
                         </div>
@@ -189,18 +195,18 @@ export default function Dashboard({ profile }) {
                             </div>
 
                             <div className="flex items-center gap-3">
-                                <span className="flex size-8 items-center justify-center rounded-full bg-[#F1F5F9] text-xs font-semibold text-[#94A3B8]">
-                                    3
+                                <span className="flex size-8 items-center justify-center rounded-full bg-[#E8F5EE] text-[#006948]">
+                                    <Check size={16} />
                                 </span>
                                 <div className="flex-1">
-                                    <p className="text-sm font-semibold text-[#94A3B8]">
-                                        Keahlian &amp; proyek
+                                    <p className="text-sm font-semibold text-[#0F172A]">
+                                        Konten portofolio
                                     </p>
-                                    <p className="text-xs text-[#94A3B8]">Tahap berikutnya</p>
+                                    <p className="text-xs text-[#94A3B8]">
+                                        {counts.skills} skill · {counts.projects} proyek ·{' '}
+                                        {counts.experiences} pengalaman
+                                    </p>
                                 </div>
-                                <span className="rounded-full bg-[#F1F5F9] px-2 py-0.5 text-[10px] font-semibold text-[#64748B]">
-                                    Segera
-                                </span>
                             </div>
                         </div>
                     </section>
@@ -209,7 +215,7 @@ export default function Dashboard({ profile }) {
                 <section>
                     <div className="mb-4 flex items-center justify-between">
                         <h3 className="font-display text-lg text-[#0F172A]">
-                            Menyusul di tahap berikutnya
+                            Kelola konten portofolio
                         </h3>
                         <Link
                             href={route('welcome')}
@@ -221,27 +227,32 @@ export default function Dashboard({ profile }) {
                     </div>
 
                     <div className="grid gap-4 md:grid-cols-3">
-                        {upcomingFeatures.map((feature) => {
-                            const Icon = feature.icon;
+                        {contentSections.map((section) => {
+                            const Icon = section.icon;
 
                             return (
-                                <div
-                                    key={feature.title}
-                                    className="flex flex-col gap-3 rounded-2xl border border-dashed border-[#CBD5E1] bg-white p-5"
+                                <Link
+                                    key={section.key}
+                                    href={route(section.routeName)}
+                                    className="flex flex-col gap-3 rounded-2xl border border-[#E2E8F0] bg-white p-5 transition hover:border-[#006948] hover:shadow-sm"
                                 >
                                     <div className="flex items-center justify-between">
-                                        <Icon size={22} className="text-[#94A3B8]" />
-                                        <span className="rounded-full bg-[#F1F5F9] px-2.5 py-1 text-[10px] font-semibold text-[#64748B]">
-                                            Segera
+                                        <Icon size={22} className="text-[#006948]" />
+                                        <span className="rounded-full bg-[#E8F5EE] px-2.5 py-1 text-[10px] font-semibold text-[#006948]">
+                                            {counts[section.key]} item
                                         </span>
                                     </div>
                                     <h4 className="font-display text-base text-[#0F172A]">
-                                        {feature.title}
+                                        {section.title}
                                     </h4>
                                     <p className="text-sm leading-6 text-[#64748B]">
-                                        {feature.description}
+                                        {section.description}
                                     </p>
-                                </div>
+                                    <span className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-[#006948]">
+                                        Kelola
+                                        <ArrowUpRight size={14} />
+                                    </span>
+                                </Link>
                             );
                         })}
                     </div>

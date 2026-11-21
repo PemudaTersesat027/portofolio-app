@@ -32,10 +32,30 @@ function SidebarContent({ user, onNavigate }) {
             href: route('dashboard'),
             active: route().current('dashboard'),
         },
-        { label: 'Identitas', icon: UserRound, soon: true },
-        { label: 'Keahlian', icon: Wrench, soon: true },
-        { label: 'Proyek', icon: FolderKanban, soon: true },
-        { label: 'Pengalaman', icon: BriefcaseBusiness, soon: true },
+        {
+            label: 'Identitas',
+            icon: UserRound,
+            href: route('admin.identity.edit'),
+            active: route().current('admin.identity.edit'),
+        },
+        {
+            label: 'Keahlian',
+            icon: Wrench,
+            href: route('admin.skills.index'),
+            active: route().current('admin.skills.index'),
+        },
+        {
+            label: 'Proyek',
+            icon: FolderKanban,
+            href: route('admin.projects.index'),
+            active: route().current('admin.projects.index'),
+        },
+        {
+            label: 'Pengalaman',
+            icon: BriefcaseBusiness,
+            href: route('admin.experiences.index'),
+            active: route().current('admin.experiences.index'),
+        },
     ];
 
     return (

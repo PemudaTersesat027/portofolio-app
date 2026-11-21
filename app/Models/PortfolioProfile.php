@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
 #[Fillable([
@@ -49,6 +50,30 @@ class PortfolioProfile extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the skills belonging to this portfolio profile.
+     */
+    public function skills(): HasMany
+    {
+        return $this->hasMany(Skill::class);
+    }
+
+    /**
+     * Get the projects belonging to this portfolio profile.
+     */
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    /**
+     * Get the experiences belonging to this portfolio profile.
+     */
+    public function experiences(): HasMany
+    {
+        return $this->hasMany(Experience::class);
     }
 
     /**
